@@ -16,9 +16,10 @@ let camera, controls, scene, renderer;
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
-init("map/map.glb", 100);
-
-animate();
+fetch('config.json').then(response => response.json()).then(data => {
+  init(data.map.file, data.map.scale);
+  animate();
+})
 
 function init(url, scale) {
 
