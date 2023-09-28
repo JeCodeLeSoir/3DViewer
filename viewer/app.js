@@ -10,8 +10,8 @@ let container, stats;
 
 let camera, controls, scene, renderer;
 
-//let mesh;
-//let helper;
+let mesh;
+let helper;
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -41,6 +41,8 @@ function init(url, scale) {
       console.log(gltf);
       gltf.scene.scale.set(scale, scale, scale);
       scene.add(gltf.scene);
+
+      mesh = gltf.scene
     },
   );
 
@@ -63,6 +65,14 @@ function init(url, scale) {
   camera.position.x = 4000;
 
   controls.update();
+
+  const geometryHelper = new THREE.ConeGeometry(20, 100, 3);
+  geometryHelper.translate(0, 50, 0);
+  geometryHelper.rotateX(Math.PI / 2);
+  helper = new THREE.Mesh(geometryHelper, new THREE.MeshNormalMaterial());
+  scene.add(helper);
+
+
   container.addEventListener('pointermove', onPointerMove);
 
   stats = new Stats();
@@ -95,18 +105,18 @@ function onPointerMove(event) {
 
   // See if the ray from the camera into the world hits one of our meshes
 
-  /* if (mesh !== undefined && mesh !== null) {
-     const intersects = raycaster.intersectObject(mesh);
- 
-     // Toggle rotation bool for meshes that we clicked
-     if (intersects.length > 0) {
- 
-       helper.position.set(0, 0, 0);
-       helper.lookAt(intersects[0].face.normal);
- 
-       helper.position.copy(intersects[0].point);
- 
-     }
-   }*/
+  if (mesh !== undefined && mesh !== null) {
+    const intersects = raycaster.intersectObject(mesh);
+
+    // Toggle rotation bool for meshes that we clicked
+    if (intersects.length > 0) {
+
+      helper.position.set(0, 0, 0);
+      helper.lookAt(intersects[0].face.normal);
+
+      helper.position.copy(intersects[0].point);
+
+    }
+  }
 
 }
