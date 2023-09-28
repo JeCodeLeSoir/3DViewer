@@ -16,7 +16,7 @@ let camera, controls, scene, renderer;
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
-init("3DViewer/map/map.glb", 100);
+init("../3DViewer/map/map.glb", 100);
 
 animate();
 
