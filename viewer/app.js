@@ -83,10 +83,16 @@ function init(url, scale) {
       }
 
       if (child.type === "Mesh") {
+
+
+        child.scale.set(scale, scale, scale);
+
         let newMesh = child.clone();
 
         newMesh.material = outlineMaterial.clone();
         newMesh.scale.multiplyScalar(1.05);
+
+
         //newMesh.visible = true;
 
         const material = new THREE.MeshLambertMaterial();
